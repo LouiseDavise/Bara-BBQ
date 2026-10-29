@@ -1,0 +1,63 @@
+import { TENDERS } from './tenders.js'
+import type { CountryProfile } from './types.js'
+
+export const indonesia: CountryProfile = {
+  code: 'ID',
+  name: { en: 'Indonesia', 'zh-TW': '印尼', 'zh-CN': '印度尼西亚', id: 'Indonesia', ms: 'Indonesia', ja: 'インドネシア', ko: '인도네시아' },
+  lastReviewed: '2026-10-29',
+  reviewNotes:
+    'PBJT (formerly PB1) restaurant tax is set by each regency or city, usually 10%, charged on subtotal + service charge. Receipts show the NPWP. Confirm the local rate and any tax-monitoring device rules for the branch’s regency.',
+  currency: 'IDR',
+  defaultTimeZone: 'Asia/Jakarta',
+  callingCode: '62',
+  pricing: {
+    serviceCharge: { bp: 1000, channels: ['dineIn'] },
+    tax: { bp: 1000, inclusive: false, onServiceCharge: true },
+    rounding: { level: 'bill', mode: 'halfUp' },
+    cashRounding: { enabled: false, required: false, increment: 100, mode: 'halfUp' },
+  },
+  taxName: {
+    en: 'Restaurant tax (PBJT)',
+    'zh-TW': '餐飲稅 (PBJT)',
+    'zh-CN': '餐饮税 (PBJT)',
+    id: 'Pajak restoran (PBJT)',
+    ms: 'Cukai restoran (PBJT)',
+    ja: '飲食税 (PBJT)',
+    ko: '음식점세 (PBJT)',
+  },
+  serviceChargeName: { en: 'Service charge', 'zh-TW': '服務費', 'zh-CN': '服务费', id: 'Biaya layanan', ms: 'Caj perkhidmatan', ja: 'サービス料', ko: '봉사료' },
+  invoicing: { kind: 'id-receipt', taxIdField: 'npwp', taxIdLabel: { en: 'NPWP' }, eInvoice: false },
+  tenders: [TENDERS.cash, TENDERS.card, TENDERS.qris, TENDERS.goPay, TENDERS.ovo, TENDERS.shopeePay, TENDERS.bankTransfer],
+  onlinePaymentProviders: ['mock', 'midtrans', 'xendit'],
+  messaging: 'whatsapp',
+  deliveryPlatforms: [
+    { id: 'gofood', name: 'GoFood' },
+    { id: 'grabfood', name: 'GrabFood' },
+    { id: 'shopeefood', name: 'ShopeeFood' },
+  ],
+  taxReport: { period: 'monthly', form: 'PBJT' },
+  phoneExample: '0812-3456-7890',
+  guestLanguages: ['id', 'en', 'zh-CN'],
+  denominations: [
+    { value: 100_000, kind: 'note' },
+    { value: 50_000, kind: 'note' },
+    { value: 20_000, kind: 'note' },
+    { value: 10_000, kind: 'note' },
+    { value: 5_000, kind: 'note' },
+    { value: 2_000, kind: 'note' },
+    { value: 1_000, kind: 'note' },
+    { value: 500, kind: 'coin' },
+    { value: 200, kind: 'coin' },
+    { value: 100, kind: 'coin' },
+  ],
+  labour: { dailyLimitH: 12 },
+  privacyLaw: {
+    en: 'Personal Data Protection Law (UU PDP No. 27/2022)',
+    'zh-TW': '個人資料保護法（UU PDP 第27/2022號）',
+    'zh-CN': '个人数据保护法（UU PDP 第27/2022号）',
+    id: 'Undang-Undang Pelindungan Data Pribadi (UU PDP No. 27/2022)',
+    ms: 'Undang-Undang Perlindungan Data Peribadi (UU PDP No. 27/2022)',
+    ja: '個人データ保護法（UU PDP 2022年第27号）',
+    ko: '개인정보보호법 (UU PDP 2022년 제27호)',
+  },
+}

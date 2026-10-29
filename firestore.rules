@@ -1,0 +1,64 @@
+rules_version = '2';
+
+// Staff screens read a few branch collections in realtime (onSnapshot) with a Firebase custom
+// token minted by /api/auth/firebase-token. Its claims carry the user's role per branch:
+//   br: { jkt: 'cashier', dps: 'manager' }   g: 'owner' | 'area' | 'finance' | 'menuEditor' | null
+// A staff member reads only their own branches, and only what their role needs.
+// Nobody writes from the client: every write goes through the API. Guests have no access at all.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function owner() {
+      return signedIn() && request.auth.token.get('g', null) == 'owner';
+    }
+
+    function roleIn(branchId) {
+      return request.auth.token.get('br', {}).get(branchId, '');
+    }
+
+    function can(branchId, roles) {
+      return signedIn() && (owner() || roleIn(branchId) in roles);
+    }
+
+    match /branches/{branchId} {
+      // Floor plan and table sessions: waiter app, host stand, POS.
+      match /tables/{id} {
+        allow read: if can(branchId, ['manager', 'cashier', 'waiter', 'host']);
+      }
+      match /tableSessions/{id} {
+        allow read: if can(branchId, ['manager', 'cashier', 'waiter', 'host']);
+      }
+      // Waiter calls and bill requests.
+      match /calls/{id} {
+        allow read: if can(branchId, ['manager', 'cashier', 'waiter']);
+      }
+      // Bills, with prices: never the kitchen.
+      match /orders/{id} {
+        allow read: if can(branchId, ['manager', 'cashier', 'waiter']);
+      }
+      // Kitchen tickets carry no prices.
+      match /kdsTickets/{id} {
+        allow read: if can(branchId, ['manager', 'waiter', 'kitchen']);
+      }
+      match /reservations/{id} {
+        allow read: if can(branchId, ['manager', 'host', 'waiter']);
+      }
+      match /waitlist/{id} {
+        allow read: if can(branchId, ['manager', 'host']);
+      }
+      // Sold-out status shows on every screen.
+      match /menuItems/{id} {
+        allow read: if can(branchId, ['manager', 'cashier', 'waiter', 'kitchen', 'host']);
+      }
+    }
+
+    // Everything else (payments, invoices, finance, customers, staff, audit log, settings) is
+    // read and written only through the API.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

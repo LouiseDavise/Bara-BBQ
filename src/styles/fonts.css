@@ -1,0 +1,4 @@
+/* Latin display and body fonts, self-hosted (small unicode-range subsets, font-display: swap).
+   CJK families are added per locale by src/lib/fonts.ts, so Latin pages stay light. */
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/inter';

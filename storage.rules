@@ -1,0 +1,16 @@
+rules_version = '2';
+
+// Uploads go through the API (which resizes and checks them). Menu, branch and gallery photos
+// under public/ can be read by anyone; receipt and supplier-invoice photos are served through
+// the API to staff who may see them.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

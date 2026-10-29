@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api?__path=:path*" },
+    { "source": "/(login|device|lock)", "destination": "/app.html" },
+    { "source": "/staff", "destination": "/app.html" },
+    { "source": "/staff/:path*", "destination": "/app.html" },
+    { "source": "/hq", "destination": "/app.html" },
+    { "source": "/hq/:path*", "destination": "/app.html" },
+    { "source": "/((?!api/|assets/).*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(login|device|lock|staff|staff/.*|hq|hq/.*|app.html)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
+  ],
+  "crons": [{ "path": "/api/cron/nightly", "schedule": "15 21 * * *" }]
+}

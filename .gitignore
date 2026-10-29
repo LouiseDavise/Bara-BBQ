@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-server
+coverage
+*.log
+.DS_Store
+.vercel
+.env.local
+.env.*.local
+.emulator-data
+playwright-report
+test-results
+.idea
+.vscode/*
+!.vscode/extensions.json

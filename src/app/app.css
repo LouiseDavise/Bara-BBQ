@@ -1,0 +1,483 @@
+/* Staff and head-office apps: calm, high-contrast, big touch targets, dark and light themes. */
+:root,
+[data-theme='dark'] {
+  --bg: #151312;
+  --surface: #201c1a;
+  --surface-2: #2b2522;
+  --line: #3a332f;
+  --text: #f3efe9;
+  --muted: #b3aaa1;
+  --accent: #e8642c;
+  --accent-text: #160f0b;
+  --ok: #46b97a;
+  --warn: #e0a83a;
+  --danger: #f0695f;
+  --focus: #f3a06f;
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --bg: #f6f3ee;
+  --surface: #ffffff;
+  --surface-2: #efe9e1;
+  --line: #ddd4c9;
+  --text: #1d1a17;
+  --muted: #5e564e;
+  --accent: #b8471b;
+  --accent-text: #ffffff;
+  --ok: #1d7a49;
+  --warn: #8a5a00;
+  --danger: #b3261e;
+  --focus: #b8471b;
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100svh;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin: 0 0 var(--space-3);
+}
+
+h1 {
+  font-size: 1.75rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin-top: var(--space-6);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.lead {
+  font-size: 1.125rem;
+  margin: 0 0 var(--space-2);
+}
+
+.code {
+  font-size: 0.75em;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+}
+
+.wordmark span {
+  color: var(--accent);
+}
+
+.wordmark.small {
+  font-size: 1.125rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+}
+
+.stack {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* ── Controls ─────────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-small);
+  border: 1px solid transparent;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.btn-secondary {
+  background: var(--surface-2);
+  border-color: var(--line);
+  color: var(--text);
+}
+
+.btn-quiet {
+  background: transparent;
+  color: var(--text);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.field label {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.field input,
+.field select,
+.staff-header select {
+  min-height: 48px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-small);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.field-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.notice {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-small);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.notice-error {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.notice-success {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+.spinner {
+  display: grid;
+  place-items: center;
+  min-height: 40vh;
+}
+
+.spinner-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid var(--line);
+  border-top-color: var(--accent);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.offline-banner {
+  padding: var(--space-3) var(--space-4);
+  background: var(--warn);
+  color: #1d1a17;
+  font-weight: 600;
+  text-align: center;
+}
+
+.demo-ribbon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.demo-ribbon-close {
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 1.25rem;
+  padding: var(--space-1) var(--space-2);
+  cursor: pointer;
+}
+
+/* ── Layout ───────────────────────────────────────────────────────────────── */
+
+.staff-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.staff-header-branch,
+.staff-header-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.staff-user {
+  font-weight: 600;
+}
+
+.staff-main {
+  padding: var(--space-6) var(--space-5);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.staff-main.narrow {
+  max-width: 560px;
+}
+
+.module-grid {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-5) 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-3);
+}
+
+.module {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  min-height: 96px;
+}
+
+.module-name {
+  font-weight: 600;
+}
+
+.module-grant {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.module-allow {
+  border-left: 4px solid var(--ok);
+}
+
+.module-approval {
+  border-left: 4px solid var(--warn);
+}
+
+.module-read {
+  border-left: 4px solid var(--muted);
+}
+
+.module-deny {
+  opacity: 0.55;
+}
+
+.branch-links,
+.hq-branches {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.hq-branches {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.hq-branches .card {
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* ── Login ────────────────────────────────────────────────────────────────── */
+
+.page-login {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+.login-brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.login-form {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 420px;
+}
+
+.demo-login {
+  margin-top: var(--space-7);
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.demo-branch {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+}
+
+.demo-branch h3 {
+  font-size: 1.0625rem;
+}
+
+.demo-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.demo-buttons .btn {
+  min-height: 44px;
+  padding: 0 var(--space-4);
+}
+
+.login-footer {
+  margin-top: var(--space-6);
+}
+
+/* ── Lock screen and PIN pad ──────────────────────────────────────────────── */
+
+.lock-header {
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+  margin-bottom: var(--space-6);
+}
+
+.lock-people {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-3);
+}
+
+.lock-people button {
+  width: 100%;
+  min-height: 88px;
+  display: grid;
+  gap: var(--space-1);
+  place-content: center;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.lock-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.lock-pin {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+}
+
+.pinpad {
+  display: grid;
+  gap: var(--space-4);
+  justify-items: center;
+}
+
+.pinpad-prompt {
+  margin: 0;
+  color: var(--muted);
+}
+
+.pinpad-dots {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.pinpad-dots span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--muted);
+}
+
+.pinpad-dots span.filled {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.pinpad-keys {
+  display: grid;
+  grid-template-columns: repeat(3, 84px);
+  gap: var(--space-3);
+}
+
+.pinpad-keys button {
+  height: 72px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.pinpad-keys .pinpad-clear {
+  font-size: 1rem;
+}
+
+.pinpad-keys .pinpad-ok {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+  font-size: 1.125rem;
+}
+
+.pinpad-keys button:disabled {
+  opacity: 0.45;
+}

@@ -1,0 +1,49 @@
+/* Design tokens. Brand palette for the public site; the staff app themes live in app.css. */
+:root {
+  --charcoal: #141110;
+  --soot: #1e1a18;
+  --soot-raised: #2a2421;
+  --ember: #e8642c;
+  --ember-glow: rgb(232 100 44 / 35%);
+  --brass: #c8a46a;
+  --bone: #efe7da;
+  --smoke: #a8a097;
+
+  /* "Daylight" variant, used only by the printed menu */
+  --paper: #f6f1e8;
+  --ink: #1b1715;
+
+  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --radius: 12px;
+  --radius-small: 8px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Latin letters stay in Fraunces/Inter; Han, kana and hangul fall through to the matching Noto
+   family, so mixed lines like "Bara 炭焰" set each script in its own face. */
+:lang(zh-TW) {
+  --font-display: 'Fraunces Variable', 'Noto Serif TC', 'Songti TC', serif;
+  --font-body: 'Inter Variable', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+}
+:lang(zh-CN) {
+  --font-display: 'Fraunces Variable', 'Noto Serif SC', 'Songti SC', serif;
+  --font-body: 'Inter Variable', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+:lang(ja) {
+  --font-display: 'Fraunces Variable', 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
+  --font-body: 'Inter Variable', 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}
+:lang(ko) {
+  --font-display: 'Fraunces Variable', 'Noto Serif KR', 'AppleMyungjo', serif;
+  --font-body: 'Inter Variable', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}

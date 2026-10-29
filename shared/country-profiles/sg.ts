@@ -1,0 +1,60 @@
+import { TENDERS } from './tenders.js'
+import type { CountryProfile } from './types.js'
+
+export const singapore: CountryProfile = {
+  code: 'SG',
+  name: { en: 'Singapore', 'zh-TW': '新加坡', 'zh-CN': '新加坡', id: 'Singapura', ms: 'Singapura', ja: 'シンガポール', ko: '싱가포르' },
+  lastReviewed: '2026-10-29',
+  reviewNotes:
+    'GST is 9%, charged on subtotal + service charge. Receipts show the GST registration number and the GST amount; a full tax invoice is issued on request. Confirm the GST rate and F5 filing schedule with a local accountant.',
+  currency: 'SGD',
+  defaultTimeZone: 'Asia/Singapore',
+  callingCode: '65',
+  pricing: {
+    serviceCharge: { bp: 1000, channels: ['dineIn'] },
+    tax: { bp: 900, inclusive: false, onServiceCharge: true },
+    rounding: { level: 'bill', mode: 'halfUp' },
+    cashRounding: { enabled: false, required: false, increment: 5, mode: 'halfUp' },
+  },
+  taxName: { en: 'GST', 'zh-TW': '消費稅 (GST)', 'zh-CN': '消费税 (GST)', id: 'GST', ms: 'GST', ja: '消費税 (GST)', ko: '부가가치세 (GST)' },
+  serviceChargeName: { en: 'Service charge', 'zh-TW': '服務費', 'zh-CN': '服务费', id: 'Biaya layanan', ms: 'Caj perkhidmatan', ja: 'サービス料', ko: '봉사료' },
+  invoicing: {
+    kind: 'sg-gst',
+    taxIdField: 'gstRegNo',
+    taxIdLabel: { en: 'GST Reg No.', 'zh-TW': 'GST 註冊號碼', 'zh-CN': 'GST 注册号码', id: 'No. registrasi GST', ms: 'No. Pendaftaran GST', ja: 'GST登録番号', ko: 'GST 등록번호' },
+    eInvoice: false,
+  },
+  tenders: [TENDERS.cash, TENDERS.card, TENDERS.nets, TENDERS.payNow, TENDERS.grabPay],
+  onlinePaymentProviders: ['mock', 'stripe'],
+  messaging: 'whatsapp',
+  deliveryPlatforms: [
+    { id: 'grabfood', name: 'GrabFood' },
+    { id: 'foodpanda', name: 'foodpanda' },
+    { id: 'deliveroo', name: 'Deliveroo' },
+  ],
+  taxReport: { period: 'quarterly', form: 'GST F5' },
+  phoneExample: '8123 4567',
+  guestLanguages: ['en', 'zh-CN', 'ms', 'id'],
+  denominations: [
+    { value: 10_000, kind: 'note' },
+    { value: 5_000, kind: 'note' },
+    { value: 1_000, kind: 'note' },
+    { value: 500, kind: 'note' },
+    { value: 200, kind: 'note' },
+    { value: 100, kind: 'coin' },
+    { value: 50, kind: 'coin' },
+    { value: 20, kind: 'coin' },
+    { value: 10, kind: 'coin' },
+    { value: 5, kind: 'coin' },
+  ],
+  labour: { dailyLimitH: 12 },
+  privacyLaw: {
+    en: 'Personal Data Protection Act 2012 (Singapore)',
+    'zh-TW': '2012年個人資料保護法（新加坡）',
+    'zh-CN': '2012年个人资料保护法（新加坡）',
+    id: 'Undang-Undang Perlindungan Data Pribadi 2012 (Singapura)',
+    ms: 'Akta Perlindungan Data Peribadi 2012 (Singapura)',
+    ja: '2012年個人データ保護法（シンガポール）',
+    ko: '2012년 개인정보보호법 (싱가포르)',
+  },
+}

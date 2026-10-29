@@ -1,0 +1,68 @@
+import { TENDERS } from './tenders.js'
+import type { CountryProfile } from './types.js'
+
+export const malaysia: CountryProfile = {
+  code: 'MY',
+  name: { en: 'Malaysia', 'zh-TW': '馬來西亞', 'zh-CN': '马来西亚', id: 'Malaysia', ms: 'Malaysia', ja: 'マレーシア', ko: '말레이시아' },
+  lastReviewed: '2026-10-29',
+  reviewNotes:
+    'Service tax on food and beverage is 6%; whether it also applies to the service charge is a branch setting (default yes). Cash bills round to the nearest 5 sen. MyInvois: B2C receipts are consolidated into one monthly e-invoice submitted within 7 days after month end; buyers can ask for an individual e-invoice. Confirm the SST threshold and MyInvois phase with a local accountant.',
+  currency: 'MYR',
+  defaultTimeZone: 'Asia/Kuala_Lumpur',
+  callingCode: '60',
+  pricing: {
+    serviceCharge: { bp: 1000, channels: ['dineIn'] },
+    tax: { bp: 600, inclusive: false, onServiceCharge: true },
+    rounding: { level: 'bill', mode: 'halfUp' },
+    cashRounding: { enabled: true, required: true, increment: 5, mode: 'halfUp' },
+  },
+  taxName: {
+    en: 'Service tax (SST)',
+    'zh-TW': '服務稅 (SST)',
+    'zh-CN': '服务税 (SST)',
+    id: 'Pajak layanan (SST)',
+    ms: 'Cukai perkhidmatan (SST)',
+    ja: 'サービス税 (SST)',
+    ko: '서비스세 (SST)',
+  },
+  serviceChargeName: { en: 'Service charge', 'zh-TW': '服務費', 'zh-CN': '服务费', id: 'Biaya layanan', ms: 'Caj perkhidmatan', ja: 'サービス料', ko: '봉사료' },
+  invoicing: {
+    kind: 'my-myinvois',
+    taxIdField: 'sstNo',
+    taxIdLabel: { en: 'SST Reg. No.', 'zh-TW': 'SST 登記號碼', 'zh-CN': 'SST 注册号码', id: 'No. registrasi SST', ms: 'No. Pendaftaran SST', ja: 'SST登録番号', ko: 'SST 등록번호' },
+    eInvoice: true,
+  },
+  tenders: [TENDERS.cash, TENDERS.card, TENDERS.duitNow, TENDERS.tng, TENDERS.grabPay],
+  onlinePaymentProviders: ['mock', 'stripe'],
+  messaging: 'whatsapp',
+  deliveryPlatforms: [
+    { id: 'grabfood', name: 'GrabFood' },
+    { id: 'foodpanda', name: 'foodpanda' },
+    { id: 'shopeefood', name: 'ShopeeFood' },
+  ],
+  taxReport: { period: 'bimonthly', form: 'SST-02' },
+  phoneExample: '012-345 6789',
+  guestLanguages: ['en', 'ms', 'zh-CN', 'id'],
+  denominations: [
+    { value: 10_000, kind: 'note' },
+    { value: 5_000, kind: 'note' },
+    { value: 2_000, kind: 'note' },
+    { value: 1_000, kind: 'note' },
+    { value: 500, kind: 'note' },
+    { value: 100, kind: 'note' },
+    { value: 50, kind: 'coin' },
+    { value: 20, kind: 'coin' },
+    { value: 10, kind: 'coin' },
+    { value: 5, kind: 'coin' },
+  ],
+  labour: { dailyLimitH: 12 },
+  privacyLaw: {
+    en: 'Personal Data Protection Act 2010 (Malaysia)',
+    'zh-TW': '2010年個人資料保護法（馬來西亞）',
+    'zh-CN': '2010年个人资料保护法（马来西亚）',
+    id: 'Undang-Undang Perlindungan Data Pribadi 2010 (Malaysia)',
+    ms: 'Akta Perlindungan Data Peribadi 2010',
+    ja: '2010年個人データ保護法（マレーシア）',
+    ko: '2010년 개인정보보호법 (말레이시아)',
+  },
+}
